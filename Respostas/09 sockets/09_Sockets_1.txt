@@ -1,0 +1,32 @@
+Com relação ao modelo cliente-servidor, responda:
+(a) Quais são as características básicas deste modelo?
+
+	O cliente-servidor caracterizou-se chamar tecnicamente de arquitetura multicamada, inspirado nas camadas no Modelo OSI, o processo de dividir a arquitetura de cliente-servidor em várias camadas lógicas facilitando o processo de programação distribuída, existe desde o modelo mais simples de duas camadas, e o mais utilizado atualmente que é o modelo de três camadas que é paralelo ao modelo de arquitetura de software denominado MVC
+
+
+(b) Quais são as características básicas do servidor?
+
+	Aguarda Passivamente, responde aos clientes, socket passivo.
+	
+(c) Quais são as características básicas do cliente?
+
+	Inicia a comunicação, Deve saber o endereço e a porta do servidor, socket ativo.
+
+Com relação ao protocolo de comunicação da internet, responda:
+(a) O que são protocolos de comunicação?
+
+	Para compartilhar dados pela rede é necessária uma comunicação prévia, e esta comunicação se rege através de certos protocolos que, sob seu cumprimento, permitem a comunicação. Vamos ver os mais importantes na Rede.
+	
+(b) Quais são as características básicas de protocolos de comunicação?
+	
+	Um protocolo de comunicações é um conjunto de normas que estão obrigadas a cumprir todas as máquinas e programas que intervêem em uma comunicação de dados entre computadores sem os quais, a comunicação seria caótica e, portanto impossível. 
+
+	
+Com relação ao protocolo TCP, responda:
+(a) O que são portas no protocolo TCP?
+
+	As portas são para o computador poder distinguir as diferentes fontes de dados. Assim, para facilitar este processo, cada uma destas aplicações recebe um endereço único na máquina, codificada em 16 bits: uma porta. A combinação endereço IP + Porta se torna, então, um endereço único, chamado socket.
+
+(b) Para que servem estas portas?
+
+	O número da porta indica a aplicação à qual se destinam os dados. Desta maneira, quando o computador recebe informações destinadas a uma porta, os dados são enviados para o aplicativo correspondente. Se for um pedido destinado ao aplicativo, este chama-se aplicativo servidor. Se for uma resposta, fala-se então de aplicativo client
