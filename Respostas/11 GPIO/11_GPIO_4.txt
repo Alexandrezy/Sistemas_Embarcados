@@ -1,6 +1,4 @@
 1. Escreva um código em C para gerar uma onda quadrada de 1 Hz em um pino GPIO do Raspberry Pi.
-/*Generalize o código acima para qualquer frequência possível.*/
-
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -63,8 +61,6 @@ int main(){
 }
 2. Generalize o código acima para qualquer frequência possível.
 	
-	/*Generalize o código acima para qualquer frequência possível.*/
-
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
