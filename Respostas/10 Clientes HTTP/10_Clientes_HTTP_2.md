@@ -1,55 +1,182 @@
-1. Especifique algumas portas importantes pré-definidas para o protocolo TCP/IP.
+1.Utilize o programa criado pelo professor para baixar as páginas principais dos seguintes sites:
+(a) www.google.com
 
-	21	FTP 22	SSH 23	Telnet(provavelmente o protocolo de acesso remoto mais antigo) 25	SMTP(protocolo padrão para o envio de e-mails.) 53	Domain Name (Nome do domínio do Sistema)(Converter domínios em IPs) 63	Whois 70	Gopher 79 Finger 80	HTTP(principal protocolo da Internet, usado para acesso às paginas web.) 110	POP3 119	NNTP
+Abrindo o socket para o cliente... Feito!
+Obtendo o IP do servidor... Feito!
+Conectando o socket ao IP 172.217.30.100 pela porta 80... Feito!
+Pedido HTTP:
 
-	As portas são codificadas em 16 bits com mais de 60 mil possibilidades e cada porta tem uma finalidade de tratamento de algum dado especifico.
-	
-2. Com relação a endereços IP, responda:
+---------------------------------------
+GET / HTTP/1.1
+Host: www.google.com
+User-Agent: HTMLGET 1.1
+Accept: */*
+(b) www.google.com.br
 
-(a) Qual é a diferença entre endereços IP externos e locais?
+Abrindo o socket para o cliente... Feito!
+Obtendo o IP do servidor... Feito!
+Conectando o socket ao IP 172.217.28.131 pela porta 80... Feito!
+Pedido HTTP:
 
-	1.IP externo - O endereço de IP externo serve para identificar um dispositivo conectado à rede mundial de computadores, a Internet. Trata-se de um endereço único porém dinâmico: não existe mais de um computador com o mesmo endereço de IP conectado, mas o IP do seu modem pode ser alterado.
-	2. O endereço de IP interno é utilizado na identificação de um computador, tablet ou celular ligado à uma rede interna, também conhecida como Intranet. O endereço de IP interno pode ser configurado como fixo ou gerenciado pelo roteador, que evita conflitos (mais de um dispositivo com o mesmo IP).
+---------------------------------------
+GET / HTTP/1.1
+Host: www.google.com.br
+User-Agent: HTMLGET 1.1
+Accept: */*
+(c) www.unb.br
 
-(b) Como endereços IP externos são definidos? Quem os define?
+Abrindo o socket para o cliente... Feito!
+Obtendo o IP do servidor... Feito!
+Conectando o socket ao IP 164.41.102.70 pela porta 80... Feito!
+Pedido HTTP:
 
-	É definido pelo provedor de internet contratado que tem um numero limite de endereços para serem atribuídos.
+---------------------------------------
+GET / HTTP/1.1
+Host: www.unb.br
+User-Agent: HTMLGET 1.1
+Accept: */*
+(d) fga.unb.br
 
-(c) Como endereços IP locais são definidos? Quem os define?
+Abrindo o socket para o cliente... Feito!
+Obtendo o IP do servidor... Feito!
+Conectando o socket ao IP 164.41.86.15 pela porta 80... Feito!
+Pedido HTTP:
 
-	Pode ser atribuído de forma dinâmica pelo roteador ou podem ser fixados pelos usuários da rede, porem é importante que tenha apenas um IP para cada dispositivo para evitar conflitos de comunicação. 
-	
-(d) O que é o DNS? Para que ele serve?
+---------------------------------------
+GET / HTTP/1.1
+Host: www.fga.unb.br
+User-Agent: HTMLGET 1.1
+Accept: */*
+Comente os resultados obtidos para cada página, em termos das respostas HTTP e HTML obtidas.
 
-	É uma porta que tem finalidade de converter o dominio web para um ip de acesso. Por exemplo, www.google.com em um endereço do tipo 255.255.255.255. 
+Como previsto todos sem um enderenço externo diferente, porem o mais interessante são as rotas desses endereços. Pode-se verificar que existi um grau de variação em apenas 2 campos em cada exemplo, isso mostra que mesmo sendo endereços diferentes em algum momento no caminho existiu um ponto em comum que poderia nos levar até o google.com e ao google.com.br, assim como os servidores da unb que até o ponto 164.41, que é o caminho em comum entre o site da unb e o site da fga.
 
-3. Com relação à pilha de protocolos TCP/IP, responda:
-(a) O que são suas camadas? Para que servem?
+Codigo
 
-	Cada camada é responsável por um grupo de tarefas, fornecendo um conjunto de serviços bem definidos para o protocolo da camada superior. 
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <stdlib.h>
+#include <netdb.h>
+#include <string.h>
 
-(b) Quais são as camadas existentes? Para que servem?
-	
-	1. Fisica -  Tem como função principal a interface do modelo TCP/IP com os diversos tipos de redes (X.25, ATM, FDDI, Ethernet, Token Ring, Frame Relay, sistema de conexão ponto-a-ponto SLIP,etc.)
-	2. Enlace - É usado para passar quadros da camada de rede de um dispositivo para a camada de rede de outro. Esse processo pode ser controlado tanto em software (device driver) para a placa de rede quanto em firmware ou chipsets especializados.
-	3. Rede - A camada de rede resolve o problema de obter pacotes através de uma rede simples. Exemplos de protocolos são o X.25 e o Host/IMP da ARPANET.
-	4. Transporte -	Resolvem problemas como confiabilidade (o dado alcançou seu destino?) e integridade (os dados chegaram na ordem correta?). Na suíte de protocolos TCP/IP os protocolos de transporte também determinam para qual aplicação um dado qualquer é destinado.
-	5. Aplicação - camada que a maioria dos programas de rede usa de forma a se comunicar através de uma rede com outros programas. Processos que rodam nessa camada são específicos da aplicação; o dado é passado do programa de rede, no formato usado internamente por essa aplicação, e é codificado dentro do padrão de um protocolo.
-	
-(c) Quais camadas são utilizadas pela biblioteca de sockets?
+char *build_get_query(char *host, char *page);
+char *get_ip(char *host);
+ 
+int main(int argc, char **argv)
+{
+	struct sockaddr_in servidorAddr;
+	int socket_id;
+	int port = 80;
+	char *host, *ip, *get, *page, buf[BUFSIZ+1];
+	FILE *fp;
 
-	4. Camada de transporte.
-	5. Camada de Aplicação. 
-	Uma API que é padronizada para os diversos sistemas operacionais e que permite a comunicação de protocolos de transporte com diferentes convenções de endereçamento como TCP/IP e o IPX/SPX.
+	if(argc != 3)
+	{
+		fprintf(stderr, "Uso: %s host pagina\n", argv[0]);
+		fprintf(stderr, "   host: o endereco do website. ex: www.unb.br\n");
+		fprintf(stderr, "   pagina: a pagina para obter. ex: /\n");
+		exit(2);
+	}
+	host = argv[1];
+	page = argv[2];
 
-(d) As portas usadas por servidores na função bind() se referem a qual camada?
+	fprintf(stderr, "Abrindo o socket para o cliente... ");
+	if((socket_id = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
+	{
+		fprintf(stderr, "Erro na criacao do socket!\n");
+		exit(0);
+	}
+	fprintf(stderr, "Feito!\n");
 
-	bind() associa o socket com o seu endereço local, ou seja, é o Enlace com a rede, camadas de enlace e rede.
+	fprintf(stderr, "Obtendo o IP do servidor... ");
+	ip = get_ip(host);
+	fprintf(stderr, "Feito!\n");
 
-(e) Os endereços usados por clientes na função connect() se referem a qual camada?
+	fprintf(stderr, "Conectando o socket ao IP %s pela porta %d... ", ip, port);
+	memset(&servidorAddr, 0, sizeof(servidorAddr));
+	servidorAddr.sin_family = AF_INET;
+	servidorAddr.sin_addr.s_addr = inet_addr(ip);
+	servidorAddr.sin_port = htons(port);
+	if(connect(socket_id, (struct sockaddr *) &servidorAddr, 
+							sizeof(servidorAddr)) < 0)
+	{
+		fprintf(stderr, "Erro na conexao!\n");
+		exit(0);
+	}
+	fprintf(stderr, "Feito!\n");
 
-	connect() é usado para conectar remotamente com o endereço do servidor, ou seja, conecta pela rede e transporta até o servidor. 
+	get = build_get_query(host, page);
+	fprintf(stderr, "Pedido HTTP:\n\n");
+	fprintf(stderr, "---------------------------------------\n");
+	fprintf(stderr, "%s", get);
+	fprintf(stderr, "---------------------------------------\n");
+ 
+	fprintf(stderr, "Enviando o pedido HTTP ao servidor... ");
+	write(socket_id, get, strlen(get));
+	fprintf(stderr, "Feito!\n");
 
-4. Qual é a diferença entre os métodos GET e POST no protocolo HTTP?
+	free(get);
+	free(ip);
 
-	GET Requisita uma representação do recurso especificado. Requisições usando GET devem apenas recuperar dados e não devem ter qualquer outro efeito. POST Envia dados para serem processados (por exemplo, dados de um formulário HTML) para o recurso especificado. Os dados são incluídos no corpo do comando. Sua utilização em uma requisição ocorre quando é necessário enviar dados ao servidor para serem processados, geralmente por um programa script identificado no Request-URI.
+	fprintf(stderr, "Recebendo o resultado HTML e o escrevendo no arquivo 'saida.html'... ");
+	fp = fopen("saida.html","w");
+	int htmlstart = 0, tmpres;
+	char * htmlcontent;
+	while((tmpres = read(socket_id, buf, BUFSIZ)) > 0)
+	{
+		buf[tmpres] = '\0';
+		if(htmlstart == 0)
+		{
+			// Under certain conditions this will not work.
+			// If the \r\n\r\n part is split into two messages
+			// it will fail to detect the beginning of HTML content
+			htmlcontent = strstr(buf, "\r\n\r\n");
+			if(htmlcontent != NULL)
+			{
+				htmlstart = 1;
+				htmlcontent += 4;
+			}
+		}
+		else htmlcontent = buf;
+		
+		if(htmlstart) fprintf(fp, "%s", htmlcontent);
+	}
+	if(tmpres < 0)
+		fprintf(stderr, "Erro no recebimento de dados!\n");
+	fprintf(stderr, "Feito!\n");
+	close(socket_id);
+	fclose(fp);
+	return 0;
+}
+
+char *build_get_query(char *host, char *page)
+{
+	char *query;
+	char *getpage = page;
+	char *tpl = "GET %s HTTP/1.1\r\nHost: %s\r\nUser-Agent: HTMLGET 1.1\r\nAccept: */*\r\n\r\n";
+	query = (char *)malloc(strlen(host)+strlen(getpage)+strlen(tpl));
+	sprintf(query, tpl, getpage, host);
+	return query;
+}
+
+char *get_ip(char *host)
+{
+	struct hostent *hent;
+	int iplen = 15; //XXX.XXX.XXX.XXX
+	char *ip = (char *)malloc(iplen+1);
+	memset(ip, 0, iplen+1);
+	if((hent = gethostbyname(host)) == NULL)
+	{
+		herror("Can't get IP");
+		exit(1);
+	}
+	if(inet_ntop(AF_INET, (void *)hent->h_addr_list[0], ip, iplen) == NULL)
+	{
+		perror("Can't resolve host");
+		exit(1);
+	}
+	return ip;
+}
