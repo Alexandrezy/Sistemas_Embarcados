@@ -1,0 +1,23 @@
+1. Cite as vantagens e desvantagens das comunicação serial:
+(a) Assíncrona (UART).
+
+	Menos fios para a comunicação diferente da sincrona. Transmissão mais lenta. Maior suscetividade a erro na transmissão de dados, mas menos erros de conexão. Menos complexo de ser implementado. protocolo de comunicação bidirecional duplex.
+
+(b) SPI. 
+	Mais fios para a implementação. Pode existir varios slaves de comunicação, diferente da UART. Transmissão em uma velocidade maior. Mais complexa de ser implementada. Necessita de um fio de clock para sincronizar. protocolo de comunicação bidirecional duplex.
+
+2. Considere o caso em que a Raspberry Pi deve receber leituras analógico/digitais de um MSP430, e que a comunicação entre os dois é UART. É tecnicamente possível que o MSP430 mande os resultados da conversão A/D a qualquer hora, ou ele deve aguardar a Raspberry Pi fazer um pedido ao MSP430? Por quê?
+
+	Considerando a comunicação UART como sendo full-duplex. A raspberry teria que mandar uma solicitação de informações em um buffer de tx e deixar o buffer de rx em espera de resultados, assim quando o buffer de rx da MSP receber o sinal ela pode enviar atraves do buffer tx as leituras analógicas/digitais para o rx da raspberry.
+
+3. Considere o caso em que a Raspberry Pi deve receber leituras analógico/digitais de um MSP430, que a comunicação entre os dois seja SPI, e que o MSP430 seja o escravo. É tecnicamente possível que o MSP430 mande os resultados da conversão A/D a qualquer hora, ou ele deve aguardar a Raspberry Pi fazer um pedido ao MSP430? Por quê?
+
+	Como a comunicação SPI é feita atraves de uma shitf-register e ao transmitir uma informação automaticamente o outro lado recebe algo, a MSP pode inicar a comunicação desde de que o CS estiver em nivel baixo, assim poderá enviar os dados e ao mesmo tempo poderá receber algum dado aleatório vindo da raspberry.
+
+4. Se o Raspberry Pi tiver de se comunicar com dois dispositivos via UART, como executar a comunicação com o segundo dispositivo?
+
+	Como existe uma limitação entre a comunicação UART, a rasberry deve usar outro canal de comunicação e implentar um codigo paralelo ao outro codigo. Essa é uma das limitações da comunicação UART.
+
+5. Se o Raspberry Pi tiver de se comunicar com dois dispositivos via SPI, como executar a comunicação com o segundo dispositivo?
+
+	Com SPI não existi limite de comunicação com os slaves, basta implentar uma logica onde os CS dos slaves serão acessados de forma exclusiva, ou seja, em quanto um CS0 esta em nivel baixo o CS1 esta em nivel logico alto e vice-versa. Essa é uma das vantagens do protocolo SPI.
