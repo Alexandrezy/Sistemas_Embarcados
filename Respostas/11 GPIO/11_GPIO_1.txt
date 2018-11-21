@@ -1,0 +1,33 @@
+1. Apresente 5 sistemas operacionais suportados pelo Raspberry Pi, e algumas de suas características.
+
+	Raspbian baseada em Debian.
+	Ubuntu MATE baseado em no Ubuntu.
+	OSMC torna a raspberry um media center com varias funcionalidades.
+	Recalbox Torna uma central de emulação de video games antigos.
+	Pidora uma versão baseada no Fedora, da Red Hat.
+	
+2. Apresente as formas de instalação de sistemas operacionais para o Raspberry Pi.
+
+	Geralmente deve-se fazer um cartão SD bootável que rode como uma especie de HD no SO.
+
+3. Apresente 3 formas de desenvolvimento de software para o Raspberry Pi.
+
+	Como a arquitetura do processador não é Intel, deve-se tomar alguns cuidados no desenvolvimento.
+
+	Pode-se fazer todo o desenvolvimento e copilações na própria raspberry.
+	Pode-se copilar em outro Computador porem com APIs de arquitetura da ARM11 e enviar para a raspberry remotamente.
+	Quando não forem softwares copilados não existe esse problema.
+	
+4. Apresente 3 formas de acesso remoto ao Raspberry Pi.
+
+	Pode acessar a raspberry como uma estação de trabalho, com monitorm teclado e mouse.
+	Pode-se conectar um capo de ethernet e fazer uma comunicação com SSH. Para isso basta saber o IP local da raspberry.
+	Pode-se conectar a raspberry via VNC ligado-a na rede wifi e sabendo seu endereço.
+	
+5. Apresente as formas possíveis de compilação de código em C para o Raspberry Pi.
+
+	Pode ser feita pela própria gcc na raspberry ou pode-se copilar em outra maquina com poder de processamento maior porem com APIS de desenvolvimento que sejam compatíveis com a arquitetura do processador ARM11.
+
+6.Apresente as formas possíveis de compilação de código em Python para o Raspberry Pi. Como python, assim como outras aplicações são softwares que são interpretáveis. Não sofrem da diferença de arquitetura do processador. Portanto, basta desenvolver o código em python e possuir todas as bibliotecas necessárias que o software irá rodar.
+
+	A linguagem python não é compilado, ela é pseudo-compilada, pode ser chamada utilizando o seguinte código python codigo.py no terminal utilizado.

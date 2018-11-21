@@ -1,0 +1,129 @@
+1. Escreva um código em C para gerar uma onda quadrada de 1 Hz em um pino GPIO do Raspberry Pi.
+/*Generalize o código acima para qualquer frequência possível.*/
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+
+int fd;
+//função para fechar corretamente e unexportar os pinos
+void close(){
+	close(fd);
+	fd = open("/sys/class/gpio/unexport",O_WRONLY);
+	write(fd,"4",2);
+	printf("Fechando programa\n");
+	close(fd);
+	sleep(1);
+	exit(0);
+}
+
+
+
+
+int main(){
+
+	float frequencia;
+	float periodo;
+	
+	signal(SIGINT,fechar);
+
+	
+	frequencia= 5
+	periodo = 1000000/(2*(frequencia)); //Conversão de Hz para S
+
+
+	//Setando como export
+	printf("Realizando o export\n");
+	fd = open("/sys/class/gpio/export",O_WRONLY);
+	write(fd,"4",2);
+	close(fd);
+	sleep(1);
+
+	//Setando como saída
+	printf("Iniciando o pin como saída\n");
+	fd = open("/sys/class/gpio/gpio4/direction",O_WRONLY);
+	write(fd,"out",4);
+	close(fd);
+	sleep(1);
+
+
+
+	fd = open("/sys/class/gpio/gpio4/value",O_WRONLY);
+	printf("Iniciando o blink com a frequência de %.2f Hz\n",frequencia);
+	while(1){
+		write(fd,"1",2);
+		usleep(periodo);
+		write(fd,"0",2);
+		usleep(periodo);
+	}
+
+	return 0;
+}
+2. Generalize o código acima para qualquer frequência possível.
+	
+	/*Generalize o código acima para qualquer frequência possível.*/
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+
+int fd;
+//função para fechar corretamente e unexportar os pinos
+void close(){
+	close(fd);
+	fd = open("/sys/class/gpio/unexport",O_WRONLY);
+	write(fd,"4",2);
+	printf("Fechando programa\n");
+	close(fd);
+	sleep(1);
+	exit(0);
+}
+
+
+
+
+int main(){
+
+	float frequencia;
+	float periodo;
+	
+	signal(SIGINT,fechar);
+
+	printf("Qual a frequência (em Hz)?\n");
+	scanf("%f",&frequencia); //Entrada da freq pelo usuario
+	periodo = 1000000/(2*(frequencia)); //Conversão de Hz para S
+
+
+	//Setando como export
+	printf("Realizando o export\n");
+	fd = open("/sys/class/gpio/export",O_WRONLY);
+	write(fd,"4",2);
+	close(fd);
+	sleep(1);
+
+	//Setando como saída
+	printf("Iniciando o pin como saída\n");
+	fd = open("/sys/class/gpio/gpio4/direction",O_WRONLY);
+	write(fd,"out",4);
+	close(fd);
+	sleep(1);
+
+
+
+	fd = open("/sys/class/gpio/gpio4/value",O_WRONLY);
+	printf("Iniciando o blink com a frequência de %.2f Hz\n",frequencia);
+	while(1){
+		write(fd,"1",2);
+		usleep(periodo);
+		write(fd,"0",2);
+		usleep(periodo);
+	}
+
+	return 0;
+}
+	
+3. Crie dois processos, e faça com que o processo-filho gere uma onda quadrada, enquanto o processo-pai lê um botão no GPIO, aumentando a frequência da onda sempre que o botão for pressionado. A frequência da onda quadrada deve começar em 1 Hz, e dobrar cada vez que o botão for pressionado. A frequência máxima é de 64 Hz, devendo retornar a 1 Hz se o botão for pressionado novamente.
